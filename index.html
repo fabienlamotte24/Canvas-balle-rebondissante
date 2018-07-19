@@ -8,18 +8,26 @@
 <body>
   <canvas id="canvas" width="400" height="200"></canvas>
   <script>
-    var c = document.getElementById('canvas');
-    var ctx = c.getContext('2d');
-    var ballDiameter = 50;
+    var c = document.getElementById('canvas');/*Récupération de l'ID canvas*/
+    var ctx = c.getContext('2d');/*Délimitation d'une utilisation canvas en 2d*/
+    var ballDiameter = 50;/*Diamètre de la balle*/
+    /*On détermine les valeurs initiales de la balle en abcisses X et Y
+    On divise par deux pour que même lorsque la balle est censée sortir de l'écran
+    la balle reste bien */
     var posX = 1+ballDiameter/2;
     var posY = 1+ballDiameter/2;
+    /*Détermination de la vitesse*/
     var speedX = 3;
     var speedY = 3;
+    /*On créé une animation avec une vitesse suffisament rapide pour qu'à l'oeil nu on
+    ait une impression de fluidité*/
     var myInterval = setInterval(animate, 1000/30);
+    /*Début de la fonction*/
     function animate(){
       ctx.clearRect(0,0,canvas.width,canvas.height);
-      ctx.beginPath();
+      ctx.beginPath();/*Début du chemin*/
       ctx.arc(posX,posY,ballDiameter/2,0,Math.PI*2, true);
+      /*Création d'une variable gradient*/
       var gradient = ctx.createRadialGradient(30,30,400,200,100,50);
       gradient.addColorStop(0,'#CF0D0D');
       gradient.addColorStop(0.1,'#CD450B');
@@ -32,14 +40,21 @@
       gradient.addColorStop(0.8,'#0E35CE');
       gradient.addColorStop(0.9,'#09CD66');
       gradient.addColorStop(1,'#1D0CCE');
+      /*Fonction de remplissage*/
       ctx.fillStyle = gradient;
       ctx.fill();
+      /*lancement des condition*/
       if(posX + ballDiameter/2 >= canvas.width || posX <= 0 + ballDiameter/2){
         speedX *= -1;
+        /*Si l'abcisse X de l'objet touche le bord de la largeur droite du canvas
+        changement de direction vers la gauche ou inversement avec le -1*/
       }
       if(posY + ballDiameter/2 >= canvas.height || posY <= 0 + ballDiameter/2){
         speedY *= -1;
+        /*Si l'abcisse de l'objet touche le bord de la largeur basse
+        changement de direction vers le haut ou inversement avec le -1*/
       }
+      /*On addition les vitesses de délacement avec la position*/
       posX += speedX;
       posY += speedY;
     }
