@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="assets/css/style.Css">
+  <title>Exercice bonus 2</title>
+</head>
+<body>
+  <canvas id="canvas" width="400" height="200"></canvas>
+  <script>
+    var c = document.getElementById('canvas');
+    var ctx = c.getContext('2d');
+    var ballDiameter = 50;
+    var posX = 1+ballDiameter/2;
+    var posY = 1+ballDiameter/2;
+    var speedX = 3;
+    var speedY = 3;
+    var myInterval = setInterval(animate, 1000/30);
+    function animate(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      ctx.beginPath();
+      ctx.arc(posX,posY,ballDiameter/2,0,Math.PI*2, true);
+      var gradient = ctx.createRadialGradient(30,30,400,200,100,50);
+      gradient.addColorStop(0,'#CF0D0D');
+      gradient.addColorStop(0.1,'#CD450B');
+      gradient.addColorStop(0.2,'#CE7E0F');
+      gradient.addColorStop(0.3,'#CDB10F');
+      gradient.addColorStop(0.4,'#C0CD0B');
+      gradient.addColorStop(0.5,'#95CD0C');
+      gradient.addColorStop(0.6,'#5CCC0E');
+      gradient.addColorStop(0.7,'#1FCD0B');
+      gradient.addColorStop(0.8,'#0E35CE');
+      gradient.addColorStop(0.9,'#09CD66');
+      gradient.addColorStop(1,'#1D0CCE');
+      ctx.fillStyle = gradient;
+      ctx.fill();
+      if(posX + ballDiameter/2 >= canvas.width || posX <= 0 + ballDiameter/2){
+        speedX *= -1;
+      }
+      if(posY + ballDiameter/2 >= canvas.height || posY <= 0 + ballDiameter/2){
+        speedY *= -1;
+      }
+      posX += speedX;
+      posY += speedY;
+    }
+  </script>
+</body>
+</html>
